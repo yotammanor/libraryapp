@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if latest_site_list %}
+    <ul dir="rtl">
+        {% for site in latest_site_list %}
+        <li>
+            <a href="/items/{{ site.id }}/"> {{ site.site_name }} </a>: {{site.additional_text }}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p> No items are available. </p>
+{%endif %}
