@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+from django.utils import timezone
 
 class Site(models.Model):
     site_name = models.CharField(max_length=30)
@@ -9,6 +11,12 @@ class Site(models.Model):
 
     def __str__(self):
         return self.site_name
+
+    def published_recently(self):
+        return self.pub_date >= datetime.datetime.today().date() - datetime.timedelta(days=2)
+        publish_recently.admon_order_field = 'pub_date'
+        published_recently.boolean = True
+        published_recently.short_description = 'פורסם לאחרונה?'
 
 class Image(models.Model):
     site = models.ForeignKey(Site)
@@ -25,7 +33,7 @@ class Song(models.Model):
     compositor_name = models.CharField(max_length=15)
     singer_name = models.CharField(max_length=15)
     link = models.URLField('link to item')
-    date = models.DateField('date of picture')
+    date = models.DateField('date of song')
 
     def __str__(self):
         return self.song_name
