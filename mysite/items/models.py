@@ -12,6 +12,11 @@ class Site(models.Model):
     def __str__(self):
         return self.site_name
 
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Site._meta.fields]
+
+
+
     def published_recently(self):
         return self.pub_date >= datetime.datetime.today().date() - datetime.timedelta(days=2)
         publish_recently.admon_order_field = 'pub_date'

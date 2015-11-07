@@ -3,7 +3,7 @@
     <ul dir="rtl">
         {% for site in latest_site_list %}
         <li>
-            <a href="/items/{{ site.id }}/"> {{ site.site_name }} </a>: {{site.additional_text }}
+            <a href="{% url 'items:details' site.id %}"> {{ site.site_name }} </a>: {{site.additional_text }}
         </li>
         {% endfor %}
     </ul>

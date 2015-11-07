@@ -1,0 +1,6 @@
+<h1> {{site.site_name}}</h1>
+<ul>
+    {% for detail, info in site.get_fields %}
+    <li> {{detail}}:{{info}}</li>
+    {% endfor %}
+</ul>

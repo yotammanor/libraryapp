@@ -1,18 +1,15 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.shortcuts import render, get_object_or_404
+from django.http import Http404, HttpResponse
 from .models import Site
 
 def index(request):
     latest_site_list = Site.objects.order_by('-pub_date')[:5]
-    template = loader.get_template('items/index.html')
-    context = RequestContext(request, {
-        'latest_site_list': latest_site_list,
-    })
-    return HttpResponse(template.render(context))
+    context = {'latest_site_list': latest_site_list}
+    return render(request, 'items/index.html', context)
 
-def detail(request, site_id):
-    return HttpResponse("You're looking at site %s." %site_id)
+def details(request, site_id):
+    site = get_object_or_404(Site, pk=site_id)
+    return render(request,'items/details.html', {'site': site})
 
 def results(request, site_id):
     return HttpResponse(response % site_id)
